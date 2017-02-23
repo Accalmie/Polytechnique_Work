@@ -1,0 +1,12 @@
+Launch number : 7523
+Run id : 2481
+Run id : 2521
+For this run we used : B = 100000 and 100/500/1000/2000/2000 ECM trials for the first 5 challengesRun id : 3017
+For this run we used : B = 100000 and 100/500/1000/2000/2000 ECM trials for the first 5 challenges60790243792901123 has prime factors : [(29, 1), (1867, 1), (106501L, 1), (10542361L, 1)]
+Run id : 9224
+For this run we used : B = 100000 and 100/500/1000/2000/2000 ECM trials for the first 5 challengesRun id : 4462
+For this run we used : B = 100000 and 100/500/1000/2000/2000 ECM trials for the first 5 challenges60790243792901123 has prime factors : [(29, 1), (1867, 1), (10542361L, 1), (106501L, 1)]
+Run id : 438
+For this run we used : B = 100000 and 100/500/1000/2000/2000 ECM trials for the first 5 challenges60790243792901123 has prime factors : [(29, 1), (1867, 1), (106501L, 1), (10542361L, 1)]
+283145596067989314232986571 has prime factors : [(1153, 1), (2239, 1)]
+34832770232311533733269410344933971 has prime factors : [(3, 3), (3253, 1), (3533, 1)]
