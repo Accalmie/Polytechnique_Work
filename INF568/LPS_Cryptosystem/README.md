@@ -9,10 +9,10 @@
   - Contains the key generation functions
   
  + lps.py
-  - Contains the encryption and decryption function
+   - Contains the encryption and decryption function
   
  + main.py
-  - Main file to generate keys, encrypt and decrypt ciphers
+   - Main file to generate keys, encrypt and decrypt ciphers
  
  ### Usage :
  
