@@ -16,11 +16,11 @@
  
  ### Usage :
  
-+ To generate a key : 
+##### To generate a key : 
 python main.py keygen [n] [q] [k]
 
-+ To encrypt a string : 
+##### To encrypt a string : 
 python main.py encrypt [m]
 
-+ To decrypt a file : 
+##### To decrypt a file : 
 python main.py decrypt [cipher_file]
