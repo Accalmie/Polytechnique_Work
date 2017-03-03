@@ -1,6 +1,8 @@
-# Assignment for the advanced cryptology course in Polytechnique
+## Implementation of X25519 function and ECM factorization :
 
-## Files :
+Dunno if this works.
+
+### Files :
 
 + ladder_rtc : Implementation of the Montgomery Ladder
   Usage :
