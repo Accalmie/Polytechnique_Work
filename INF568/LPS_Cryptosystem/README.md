@@ -1,6 +1,9 @@
 ## Implementation of the Lyubashevsky-Palacio-Segev encryption scheme :
 
+
+
 ### Files :
+
 
 + util.py
   - Contains several utility functions
@@ -14,7 +17,10 @@
 + main.py
   - Main file to generate keys, encrypt and decrypt ciphers
  
+ 
+ 
  ### Usage :
+ 
  
 ##### To generate a key : 
 python main.py keygen [n] [q] [k]
