@@ -8,11 +8,11 @@
 + lps_keygen.py
   - Contains the key generation functions
   
- + lps.py
-   - Contains the encryption and decryption function
++ lps.py
+  - Contains the encryption and decryption function
   
- + main.py
-   - Main file to generate keys, encrypt and decrypt ciphers
++ main.py
+  - Main file to generate keys, encrypt and decrypt ciphers
  
  ### Usage :
  
