@@ -1,6 +1,6 @@
-Assignment for the advanced cryptology course in Polytechnique
+# Assignment for the advanced cryptology course in Polytechnique
 
-Files :
+## Files :
 
 + ladder_rtc : Implementation of the Montgomery Ladder
   Usage :
