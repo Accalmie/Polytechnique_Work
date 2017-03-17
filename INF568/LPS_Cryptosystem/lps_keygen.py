@@ -32,6 +32,7 @@ def keygen(n, q, k):
 	for i in range(len(T)):
 		A.append(T[i])
 
+	#print(S)
 	create_pub_key_file(A, n, k, q)
 	create_priv_key_file(S, n, k)
 
@@ -49,6 +50,8 @@ def get_row(A, i):
 
 
 def create_pub_key_file(A, n, k, q):
+
+
 	with open('pub_key.pub', 'w+') as f:
 		f.write('---- BEGIN LPS PUBLIC KEY ----\n')
 		f.write(str(n) + '\n')
@@ -59,7 +62,6 @@ def create_pub_key_file(A, n, k, q):
 			row = get_row(A, j)
 			write_row(row, f)
 
-		f.write('---- END LPS PUBLIC KEY ----')
 		f.close()
 	
 	print("Public key written")
@@ -84,7 +86,6 @@ def create_priv_key_file(S, n, k):
 		for i in range(len(S)):
 			write_row(S[i], f)
 
-		f.write('---- END LPS PRIVATE KEY ----')
 		f.close()
 	print("Private key written")
 	return
@@ -96,12 +97,13 @@ def random_matrix(q, n):
 	A = [[0 for i in range(n)] for j in range(n)]
 
 	sup = (q - 1) / 2
-	inf = (-q + 1) / 2
+	inf = (-q +1) / 2
 
 	for i in range(n):
 		for j in range(n):
 			A[i][j] = random.randint(inf, sup)
 
+	#print(A)
 	return A
 
 

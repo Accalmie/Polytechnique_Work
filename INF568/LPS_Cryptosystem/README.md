@@ -21,12 +21,17 @@
  
  ### Usage :
  
+##### For a demo
+python main.py          (Will ask if a demo is wanted, if so, generates an arbitrary pair of keys, asks for a cipher, encrypts and decrypts it)
  
 ##### To generate a key : 
 python main.py keygen [n] [q] [k]
 
-##### To encrypt a string : 
-python main.py encrypt [m]
+##### To encrypt a string or a file: 
+python main.py encrypt [m/filename]   (checks if the string is a filename and encrypts the file if it is)
 
 ##### To decrypt a file : 
 python main.py decrypt [cipher_file]
+
+##### To perform tests :
+python main.py test [N]       (Will perform N encryption/decryption processes on an arbitrary file with current keys)

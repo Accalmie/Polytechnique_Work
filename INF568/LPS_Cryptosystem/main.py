@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import lps_keygen as keygen
 import lps as lps
 import util as u
@@ -5,9 +7,9 @@ import sys
 import os.path
 
 
-def cipher_to_file(c):
+def cipher_to_file(c, filename = 'cipher.lps'):
 
-	with open('cipher', 'w+') as f:
+	with open(filename, 'w+') as f:
 		for i in range(len(c)):
 			if i == len(c) - 1:
 				f.write(str(c[i]))
@@ -44,15 +46,15 @@ def main():
 
 			m = pad(not_padded_m, k)
 
-			A, n, k, q = lps.get_public_key()
+			A, n, k, q = lps.get_public_key('pub_key.pub')
 			c = lps.encrypt(m, A, q, n, k)
 			print('Encrypted !')
 
-			print('Writing cipher to disk')
+			print("Writing cipher to disk in 'cipher'")
 			cipher_to_file(c)	
 
 			print("Now decrypting")
-			S, n, k = lps.get_private_key()
+			S, n, k = lps.get_private_key('priv_key.priv')
 
 			dec = lps.decrypt(c, S, q, n, k)
 
@@ -81,7 +83,7 @@ def main():
 			c = map(int, s)
 
 			print("Now decrypting cipher")
-			S, n, k = lps.get_private_key()
+			S, n, k = lps.get_private_key('priv_key.priv')
 			q = u.get_q_from_pub()
 
 			dec = lps.decrypt(c, S, q, n, k)
@@ -95,17 +97,30 @@ def main():
 		elif sys.argv[1] == 'encrypt':
 			to_encrypt = sys.argv[2]
 
+			if os.path.isfile(to_encrypt):
+				with open(to_encrypt, 'r') as file:
+					lines = file.readlines()
+					to_encrypt = lines[0]
+					for line in lines[1:]:
+						to_encrypt += line
+					#print(to_encrypt)
+					file.close()
 			print("Encrypting message : " + to_encrypt)
 			not_padded_m = u.string_to_binary(to_encrypt)
 
-			A, n, k, q = lps.get_public_key()
+			A, n, k, q = lps.get_public_key('pub_key.pub')
 			m = pad(not_padded_m, k)
 
 			c = lps.encrypt(m, A, q, n, k)
 			print('Encrypted !')
 
-			print('Writing cipher to disk')
-			cipher_to_file(c)
+			filename = raw_input("Name of the file to create cipher (Press enter for default = 'cipher'):\n")
+			if (filename == ''):
+				print('Writing cipher to disk')
+				cipher_to_file(c)
+			else:
+				filename += '.lps'
+				cipher_to_file(c, filename)
 
 			print("Done, now exiting ...")
 			exit(0)
@@ -121,6 +136,36 @@ def main():
 				print("Generating keys")
 				keygen.keygen(n, q, k)
 				print("Key generated")
+		elif sys.argv[1] == 'test':
+			counter = 0
+			for i in range(int(sys.argv[2])):
+				to_encrypt = 'plain-40-test.dat'
+
+				if os.path.isfile(to_encrypt):
+					with open(to_encrypt, 'r') as file:
+						to_encrypt = file.readline()
+						file.close()
+				#print("Encrypting message : " + to_encrypt)
+				not_padded_m = u.string_to_binary(to_encrypt)
+
+				A, n, k, q = lps.get_public_key('pub_key.pub')
+				m = pad(not_padded_m, k)
+
+				c = lps.encrypt(m, A, q, n, k)
+				S, n, k = lps.get_private_key('priv_key.priv')
+				q = u.get_q_from_pub()
+
+				dec = lps.decrypt(c, S, q, n, k)
+				clean_dec = clean(dec)
+
+				final_dec = u.binary_to_string(clean_dec)
+				#print("Decrypted to : " + str(final_dec))
+				if final_dec == to_encrypt:
+					counter += 1
+			print("Encryption/Decryption process worked " + str(counter) + '/' + str(sys.argv[2]))
+
+			
+
 
 
 def print_usage():

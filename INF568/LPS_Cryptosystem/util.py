@@ -1,6 +1,6 @@
 import binascii
 import random
-import os.path
+import os.path	
 
 def matrix_vector(A, s, q):
 	n = len(A)
@@ -12,30 +12,42 @@ def matrix_vector(A, s, q):
 
 	for i in range(n):
 		if s[i] == 1:
-			total_sum += (sum_vector_base_q(A[i], q)) % modulus
+			total_sum += sum_vector_base_q(A[i], q)
+
+	#print("Before modulus : " + str(total_sum))
+	total_sum %= modulus
+	#jprint(modulus)
 
 	t = []
 
 	for i in range(m):
 		ti = total_sum // q**(m - 1 - i)
 
+		ti = q
 		if ti > ((q - 1) / 2):
-			ti -= (q - 1)
+			ti -= q 
+			#print("Correction1")
 		if ti < -((q-1)/2):
-			ti += (q-1)
+			ti += q
+			#print("Correction2")
 
 		t.append(ti)
 		total_sum = total_sum % q**(m - 1 - i)
+
+
+
 
 	return list(reversed(t))
 
 
 def sum_vector_base_q(v, q):
 	s = 0
+	m = len(v)
+	modulus = q**m
 	for i in range(len(v)):
-		s += v[i] * (q**i)
+		s += (v[i] * (q**i))
 
-	return q
+	return s
 
 def random_bit_vector(n):
 	S = []

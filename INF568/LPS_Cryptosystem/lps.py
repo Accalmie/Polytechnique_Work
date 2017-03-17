@@ -5,12 +5,12 @@ import os.path
 
 
 
-def get_public_key():
-	if not os.path.isfile('pub_key.pub'):
+def get_public_key(pub_key):
+	if not os.path.isfile(pub_key):
 		print("There are no public key available")
 		return None
 
-	with open('pub_key.pub', 'r') as f:
+	with open(pub_key, 'r') as f:
 		lines = f.readlines()
 		
 		n = int(lines[1])
@@ -21,7 +21,7 @@ def get_public_key():
 
 		rows = []
 
-		for i in range(len(lines) - 1):
+		for i in range(len(lines)):
 			row = get_vector(lines[i])
 			rows.append(row)
 
@@ -40,12 +40,12 @@ def get_vector(line):
 	return vector
 
 
-def get_private_key():
-	if not os.path.isfile('priv_key.priv'):
+def get_private_key(priv_key):
+	if not os.path.isfile(priv_key):
 		print("There are no private key available")
 		return None
 
-	with open('priv_key.priv', 'r') as f:
+	with open(priv_key, 'r') as f:
 		lines = f.readlines()
 		
 		n = int(lines[1])
@@ -55,7 +55,7 @@ def get_private_key():
 
 		S = []
 
-		for i in range(len(lines) - 1):
+		for i in range(len(lines)):
 			si = get_vector(lines[i])
 			S.append(si)
 
@@ -82,9 +82,17 @@ def encrypt(m, A, q, n, k):
 	c = []
 
 	for i in range(len(alpha)):
-		c.append(alpha[i] + beta[i])
+		ti = alpha[i] + beta[i]
+		ti %= q
+		if ti > ((q - 1) / 2):
+			ti -= q
+			#print("Correction")
+		if ti < -((q-1)/2):
+			ti += q
+			#print("Correction")
+		c.append(ti)
 
-	print("Encryption completed")
+	#print("Encryption completed")
 	return c
 
 
@@ -101,7 +109,7 @@ def decrypt(c, S, q, n, k):
 		w.append(c[n + i])
 
 	for i in range(k):
-		yi = u.scalar_product(v, S[i]) - w[i]
+		yi = (u.scalar_product(v, S[i]) - w[i]) % q
 
 		if abs(yi) < q/4:
 			mi = 0
@@ -110,7 +118,7 @@ def decrypt(c, S, q, n, k):
 
 		m.append(mi)
 
-	print("Decrypted")
+	#print("Decrypted")
 
 	return m
 
@@ -139,10 +147,41 @@ def test():
 
 	print("Decrypted to : " + final_dec)
 
+def test2():
+	A, n, k, q = get_public_key('test-8-40-401.pub')
+	S, N, K = get_private_key('test-8-40-401.priv')
+
+	n = len(A)
+	m = len(A[0])
+	
+	modulus = q ** m
+
+	total_sum = 0
+
+	print(S[0])
+	print(A)
+
+	for i in range(N):
+		if S[0][i] == 1:
+			total_sum += u.sum_vector_base_q(A[i], q)
+
+	total_sum %= modulus
+	t = A[N]
+
+	test_sum = 0
+	for i in range(m):
+		test_sum += t[i]*(q**i)
+
+	print(test_sum)
+	print(total_sum)
+
+	#print("Before modulus : " + str(total_sum))
+
 
 if __name__ == '__main__':
-	test_vector()
-	test()
+	# test_vector()
+	# test()
+	test2()
 
 
 
